@@ -1,4 +1,4 @@
-System.register(['angular2/core', './subscribe.component'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,31 @@ System.register(['angular2/core', './subscribe.component'], function(exports_1, 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, subscribe_component_1;
-    var AppComponent;
+    var core_1;
+    var ContactFormComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (subscribe_component_1_1) {
-                subscribe_component_1 = subscribe_component_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            ContactFormComponent = (function () {
+                function ContactFormComponent() {
                 }
-                AppComponent = __decorate([
+                ContactFormComponent.prototype.onSubmit = function (form) {
+                    console.log(form);
+                };
+                ContactFormComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: "<subscribe></subscribe>",
-                        directives: [subscribe_component_1.SubscribeComponent]
+                        selector: 'contact-form',
+                        templateUrl: 'app/contact-form.template.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], ContactFormComponent);
+                return ContactFormComponent;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("ContactFormComponent", ContactFormComponent);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=contact-form.component.js.map
