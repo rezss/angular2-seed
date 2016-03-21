@@ -1,0 +1,12 @@
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <img class="media-object" src="http://lorempixel.com/100/100/people" [alt]="tweet.name">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{ tweet.name }} <span class="twitter-name">{{ tweet['twitter-name'] }}</span></h4>
+    <p>{{ tweet.message }}</p>
+    <like [totalLikes]="tweet.likes"></like>
+  </div>
+</div>

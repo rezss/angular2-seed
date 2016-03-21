@@ -1,0 +1,22 @@
+{
+  "name": "angular2-quickstart",
+  "description": "an angular2 tutorial site",
+  "main": "",
+  "authors": [
+    "Marcel Koglin <rezssy@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
