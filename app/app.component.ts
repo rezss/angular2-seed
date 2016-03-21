@@ -1,10 +1,10 @@
 import {Component, Input} from 'angular2/core';
-import {BootstrapPanel} from './bootstrap.panel.component';
+import {ZippyComponent} from './zippy.component';
 
 @Component({
   selector: 'my-app',
-  template: `<bs-panel><div class="body">Hello World!</div><div class="heading">The Heading!</div><div class="body">Another body!</div></bs-panel>`,
-  directives: [BootstrapPanel]
+  template: `<zippy title="This is the title">Here is the content</zippy>`,
+  directives: [ZippyComponent]
 })
 export class AppComponent {
 

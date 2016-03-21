@@ -1,0 +1,6 @@
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading" (click)="onClick()">{{ title }} <span class="glyphicon pull-right clickable" [ngClass]="{ 'glyphicon-chevron-down': isHidden, 'glyphicon-chevron-up': !isHidden }" ></span></div>
+    <div class="panel-body" [hidden]="isHidden"><ng-content></ng-content></div>
+  </div>
+</div>

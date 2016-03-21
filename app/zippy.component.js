@@ -1,4 +1,4 @@
-System.register(['angular2/core', './zippy.component'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,38 @@ System.register(['angular2/core', './zippy.component'], function(exports_1, cont
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, zippy_component_1;
-    var AppComponent;
+    var core_1;
+    var ZippyComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (zippy_component_1_1) {
-                zippy_component_1 = zippy_component_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            ZippyComponent = (function () {
+                function ZippyComponent() {
+                    this.title = '';
+                    this.isHidden = true;
                 }
-                AppComponent = __decorate([
+                ZippyComponent.prototype.onClick = function () {
+                    this.isHidden = !this.isHidden;
+                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ZippyComponent.prototype, "title", void 0);
+                ZippyComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: "<zippy title=\"This is the title\">Here is the content</zippy>",
-                        directives: [zippy_component_1.ZippyComponent]
+                        selector: 'zippy',
+                        templateUrl: 'app/zippy.template.html',
+                        styles: [".clickable { cursor: pointer; }"]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], ZippyComponent);
+                return ZippyComponent;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("ZippyComponent", ZippyComponent);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=zippy.component.js.map
