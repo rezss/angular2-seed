@@ -1,4 +1,4 @@
-System.register(['angular2/core', './simple-form.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './changePassword.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,25 +10,38 @@ System.register(['angular2/core', './simple-form.component'], function(exports_1
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, simple_form_component_1;
+    var core_1, changePassword_component_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (simple_form_component_1_1) {
-                simple_form_component_1 = simple_form_component_1_1;
+            function (changePassword_component_1_1) {
+                changePassword_component_1 = changePassword_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    var debounced = _.debounce(function (text) {
+                        var url = 'https://api.spotify.com/v1/search?type=artist&q=' + text;
+                        $.getJSON(url, function (artist) {
+                            console.log(artist);
+                        });
+                    }, 400);
+                    $("#search").keyup(function (e) {
+                        var text = e.target.value;
+                        console.log(text);
+                        if (text.length < 3)
+                            return;
+                        debounced(text);
+                    });
                 }
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "<simple-form></simple-form>",
-                        directives: [simple_form_component_1.SimpleFormComponent]
+                        templateUrl: 'app/app.template.html',
+                        directives: [changePassword_component_1.ChangePasswordComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
