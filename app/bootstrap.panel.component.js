@@ -1,4 +1,4 @@
-System.register(['angular2/core', './bootstrap.panel.component'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,28 @@ System.register(['angular2/core', './bootstrap.panel.component'], function(expor
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, bootstrap_panel_component_1;
-    var AppComponent;
+    var core_1;
+    var BootstrapPanel;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (bootstrap_panel_component_1_1) {
-                bootstrap_panel_component_1 = bootstrap_panel_component_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            BootstrapPanel = (function () {
+                function BootstrapPanel() {
                 }
-                AppComponent = __decorate([
+                BootstrapPanel = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: "<bs-panel><div class=\"body\">Hello World!</div><div class=\"heading\">The Heading!</div><div class=\"body\">Another body!</div></bs-panel>",
-                        directives: [bootstrap_panel_component_1.BootstrapPanel]
+                        selector: 'bs-panel',
+                        template: "<div class=\"panel panel-default\"><div class=\"panel-heading\"><ng-content select=\".heading\"></ng-content></div><div class=\"panel-body\"><ng-content select=\".body\"></ng-content></div></div>"
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], BootstrapPanel);
+                return BootstrapPanel;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("BootstrapPanel", BootstrapPanel);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=bootstrap.panel.component.js.map
