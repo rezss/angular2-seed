@@ -34,7 +34,9 @@ System.register(['angular2/core', 'rxjs/Rx'], function(exports_1, context_1) {
                         var url = 'https://api.spotify.com/v1/search?type=artist&q=' + searchTerm;
                         return Rx_1.Observable.fromPromise($.getJSON(url));
                     });
-                    keyups.subscribe(function (data) { return console.log(data); });
+                    var subscription = keyups.subscribe(function (data) { return console.log(data); });
+                    // unsubscribe if, by the user, not needed anymore
+                    subscription.unsubscribe();
                     // jquer way:
                     //   var debounced = _.debounce(function (text) {
                     //     var url = 'https://api.spotify.com/v1/search?type=artist&q=' + text;

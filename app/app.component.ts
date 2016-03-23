@@ -20,29 +20,32 @@ export class AppComponent implements AfterViewInit {
         var url = 'https://api.spotify.com/v1/search?type=artist&q=' + searchTerm;
         return Observable.fromPromise($.getJSON(url));
       });
-      
-    keyups.subscribe(data => console.log(data));
+    
+    var subscription = keyups.subscribe(data => console.log(data));
+    
+    // unsubscribe if, by the user, not needed anymore
+    subscription.unsubscribe();
     
     // jquer way:
-  //   var debounced = _.debounce(function (text) {
-  //     var url = 'https://api.spotify.com/v1/search?type=artist&q=' + text;
-  //     $.getJSON(url, function (artist) {
-  //       console.log(artist);
-  //     });
-  //   }, 400);
+    //   var debounced = _.debounce(function (text) {
+    //     var url = 'https://api.spotify.com/v1/search?type=artist&q=' + text;
+    //     $.getJSON(url, function (artist) {
+    //       console.log(artist);
+    //     });
+    //   }, 400);
 
-  //   $("input").keyup(function (e) {
-  //     console.log(e);
+    //   $("input").keyup(function (e) {
+    //     console.log(e);
 
-  //     var text = e.target.value;
+    //     var text = e.target.value;
 
-  //     console.log(text);
+    //     console.log(text);
 
-  //     if (text.length < 3)
-  //       return;
+    //     if (text.length < 3)
+    //       return;
 
-  //     debounced(text);
-  //   });
-  // }
+    //     debounced(text);
+    //   });
+    // }
   }
 }
