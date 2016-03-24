@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromArray';
 import 'rxjs/add/observable/range';
 import 'rxjs/add/observable/empty';
@@ -47,15 +48,20 @@ export class AppComponent implements AfterViewInit {
     // Observable.interval(1000).flatMap(x => { console.log('calling the server to get the latest news'); return Observable.of([1, 2, 3]); }).subscribe(x => console.log(x));
     
     // Observable.throw(new Error('Something failed.')).subscribe(x => console.log(x), error => console.error(error));
-    var counter = 0;
-    var ajaxCall = Observable.of('url').delay(1500).flatMap(() => {
-      if (++counter < 2)
-        return Observable.throw(new Error('request failed.'));
+    // var counter = 0;
+    // var ajaxCall = Observable.of('url').delay(1500).flatMap(() => {
+    //   if (++counter < 2)
+    //     return Observable.throw(new Error('request failed.'));
         
-      return Observable.of([1, 2, 3]);
-    });
+    //   return Observable.of([1, 2, 3]);
+    // });
     
-    ajaxCall.retry(3).subscribe(x => console.log(x), error => console.error(error));
+    // ajaxCall.retry(3).subscribe(x => console.log(x), error => console.error(error));
+    
+    // var remoteDataStream = Observable.throw(new Error("Something failed."));
+    var remoteDataStream = Observable.of([3, 4, 5]);
+    
+    remoteDataStream.catch(err => Observable.of([1, 2, 3])).subscribe(x => console.log(x));
     
   }
 
