@@ -1,51 +1,63 @@
-import {Component, Input, AfterViewInit} from 'angular2/core';
-import {Observable} from 'rxjs/Rx';
+import {Component, AfterViewInit} from 'angular2/core';
+import {ControlGroup, FormBuilder} from 'angular2/common';
+
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/observable/fromArray';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
   selector: 'my-app',
-  template: `<input type="text" id="search" class="form-control" placeholder="Search for artist">`
+  templateUrl: 'app/app.template.html'
 })
 export class AppComponent implements AfterViewInit {
-  
-  constructor() {
+  form: ControlGroup;
+
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      search: []
+    });
+    
+    var search = this.form.find('search');
+    search.valueChanges.debounceTime(400).map(str => (<string>str).replace(' ', '-')).subscribe(x => console.log(x));
+    
+    var startDates = [];
+    var startDate = new Date();
+    
+    for (var day = -2; day <= 2; ++day) {
+      var date = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate() + day);
+        
+      startDates.push(date);
+    }
+    
+    // Observable.range(1, 10).map(nr => { console.log('from map: ' + nr); return nr; }).subscribe(x => console.log('from subscribe: ' + x));
+    // Observable.empty().subscribe(null, null, () => console.log('fin.'));
+    // Observable.fromArray(startDates).map(date => { console.log("Getting deals from for date " + date); return [1, 2, 3]; }).subscribe(x => console.log(x));
+    // Observable.interval(1000).flatMap(x => { console.log('calling the server to get the latest news'); return Observable.of([1, 2, 3]); }).subscribe(x => console.log(x));
+    
+    var userStream = Observable.of({ userId: 1, username: 'mosh' }).delay(2000);
+    var tweetsStream = Observable.of([1, 2, 3]).delay(1500);
+    
+    Observable.forkJoin(userStream, tweetsStream)
+      .map(input => 
+        // [{ userId: 1, username: 'mosh'}, [1, 2, 3]]
+        ({ 'id': input[0]['userId'], 'name': input[0]['username'], 'tweet': input[1] })
+        // new Object({user: input[0], tweets: input[1]})
+      )
+      .subscribe(result => console.log(result));
+    
   }
-  
-  ngAfterViewInit () {
-    var keyups = Observable.fromEvent($("#search"), "keyup")
-      .map(e => e.target.value)
-      .filter(text => text.length >= 3)
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .flatMap(searchTerm => {
-        var url = 'https://api.spotify.com/v1/search?type=artist&q=' + searchTerm;
-        return Observable.fromPromise($.getJSON(url));
-      });
-    
-    var subscription = keyups.subscribe(data => console.log(data));
-    
-    // unsubscribe if, by the user, not needed anymore
-    subscription.unsubscribe();
-    
-    // jquer way:
-    //   var debounced = _.debounce(function (text) {
-    //     var url = 'https://api.spotify.com/v1/search?type=artist&q=' + text;
-    //     $.getJSON(url, function (artist) {
-    //       console.log(artist);
-    //     });
-    //   }, 400);
 
-    //   $("input").keyup(function (e) {
-    //     console.log(e);
+  ngAfterViewInit() {
 
-    //     var text = e.target.value;
-
-    //     console.log(text);
-
-    //     if (text.length < 3)
-    //       return;
-
-    //     debounced(text);
-    //   });
-    // }
   }
 }

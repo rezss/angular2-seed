@@ -1,1 +1,3 @@
-<input type="text" id="search" class="form-control" placeholder="Search for artist">
+<form [ngFormModel]="form">
+  <input type="text" ngControl="search">
+</form>
