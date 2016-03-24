@@ -8,6 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/fromArray';
 import 'rxjs/add/observable/range';
 import 'rxjs/add/observable/empty';
@@ -58,10 +59,13 @@ export class AppComponent implements AfterViewInit {
     
     // ajaxCall.retry(3).subscribe(x => console.log(x), error => console.error(error));
     
-    // var remoteDataStream = Observable.throw(new Error("Something failed."));
-    var remoteDataStream = Observable.of([3, 4, 5]);
+    var remoteDataStream = Observable.throw(new Error("Something failed."));
+    // remoteDataStream.catch(err => Observable.of([1, 2, 3])).subscribe(x => console.log(x));
     
-    remoteDataStream.catch(err => Observable.of([1, 2, 3])).subscribe(x => console.log(x));
+    // var remoteDataStream = Observable.of([3, 4, 5]).delay(500);
+    remoteDataStream.timeout(1000).catch(error => Observable.of(1)).subscribe(x => console.log(x), error => console.error(error), () => console.log('completed'));
+    
+    
     
   }
 
