@@ -1,23 +1,20 @@
-import {Component, OnInit} from 'angular2/core';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {Component} from 'angular2/core';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {PostService} from './post.service';
+import {AlbumsComponent} from './albums.component';
+import {AlbumComponent} from './album.component';
+import {ContactComponent} from './contact.component';
 
+@RouteConfig([
+  { path: '/albums', name: 'Albums', component: AlbumsComponent, useAsDefault: true },
+  { path: 'albums/:id', name: 'Album', component: AlbumComponent },
+  { path: '/contact', name: 'Contact', component: ContactComponent },
+  { path: '/*other', name: 'Other', redirectTo: ['Albums'] }
+])
 @Component({
-  selector: 'my-app',
-  template: `<div [hidden]="!isLoading">
-    <i class="fa fa-spinner fa-spin fa-3x"></i>
-  </div>`,
-  providers: [PostService, HTTP_PROVIDERS]
+    selector: 'my-app',
+    templateUrl: '/app/app.component.html',
+    directives: [ROUTER_DIRECTIVES]
 })
-export class AppComponent implements OnInit {
-  isLoading = true;
-
-  constructor(private _postService: PostService) {
-    this._postService.createPost({ userId: 1, title: 'a', body: 'b'});
-  }
-
-  ngOnInit() {
-    this._postService.getPosts().subscribe(posts => { this.isLoading = false; console.log(posts[0].body); });    
-  }
+export class AppComponent {
 }
